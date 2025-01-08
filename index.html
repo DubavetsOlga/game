@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Catch The Google</title>
+</head>
+<body>
+<main>
+    <section class="container">
+        <div class="top-items">
+            <div class="line">
+                <label for="01">Grid size</label>
+                <select name="select" id="01">
+                    <option value="4x4">4x4</option>
+                    <option value="5x5">5x5</option>
+                    <option value="7x7">7x7</option>
+                    <option value="8x8">8x8</option>
+                </select>
+            </div>
+            <div class="line">
+                <label for="02">Points to win</label>
+                <select name="select" id="02">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+            <div class="line">
+                <label for="03">Points to lose</label>
+                <select name="select" id="03">
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                    <option value="7">7</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+            <div class="switch-button">
+                <label>Sound on</label>
+                <button class="toggle" onclick="toggleSound()">
+                    <span class="icon-slider"></span>
+                </button>
+            </div>
+            <div id="score"></div>
+        </div>
+        <div class="main-elements">
+            <button class="button main-button">START GAME</button>
+            <div class="result-container">
+                <div class="result-block">
+                    <span class="result-title">Catch:</span>
+                    <span class="result">0</span>
+                </div>
+                <div class="result-block">
+                    <span class="result-title">Miss:</span>
+                    <span class="result">0</span>
+                </div>
+            </div>
+            <table class="table">
+                <tbody></tbody>
+            </table>
+<!--            <div class="modal" id="winModal">-->
+<!--                <div class="modal-decoration"><img src="img/icons/winnerIcon.svg" alt="icon"></div>-->
+<!--                <div class="modal-elements">-->
+<!--                    <div class="title-modal">You Win!</div>-->
+<!--                    <div class="text-modal">Congratulations</div>-->
+<!--                    <div class="modal-result">-->
+<!--                        <div class="result-block">-->
+<!--                            <span class="result-title">Catch:</span>-->
+<!--                            <span class="result">20</span>-->
+<!--                        </div>-->
+<!--                        <div class="result-block">-->
+<!--                            <span class="result-title">Miss:</span>-->
+<!--                            <span class="result">4</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <button class="button">Play again</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="modal" id="loseModal">-->
+<!--                <div class="modal-decoration"><img src="img/icons/lossIcon.svg" alt="icon"></div>-->
+<!--                <div class="modal-elements">-->
+<!--                    <div class="title-modal">You Lose!</div>-->
+<!--                    <div class="text-modal">You'll be lucky next time</div>-->
+<!--                    <div class="modal-result">-->
+<!--                        <div class="result-block">-->
+<!--                            <span class="result-title">Catch:</span>-->
+<!--                            <span class="result">12</span>-->
+<!--                        </div>-->
+<!--                        <div class="result-block">-->
+<!--                            <span class="result-title">Miss:</span>-->
+<!--                            <span class="result">10</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <button class="button">Play again</button>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </section>
+</main>
+<!--<script src="js/script.js"></script>-->
+<script src="front.js" type="module"></script>
+</body>
+</html>
