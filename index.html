@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="css/style.css"/>
     <title>Catch The Google</title>
 </head>
 <body>
@@ -14,10 +14,10 @@
             <div class="line">
                 <label for="01">Grid size</label>
                 <select name="select" id="01">
-                    <option value="4x4">4x4</option>
-                    <option value="5x5">5x5</option>
-                    <option value="7x7">7x7</option>
-                    <option value="8x8">8x8</option>
+                    <option value="4">4x4</option>
+                    <option value="5">5x5</option>
+                    <option value="7">7x7</option>
+                    <option value="8">8x8</option>
                 </select>
             </div>
             <div class="line">
@@ -38,6 +38,15 @@
                     <option value="10">10</option>
                 </select>
             </div>
+            <div class="line">
+                <label for="04">Google Jump Interval</label>
+                <select name="select" id="04">
+                    <option value="1">1 sec</option>
+                    <option value="2">2 sec</option>
+                    <option value="3">3 sec</option>
+                    <option value="4">4 sec</option>
+                </select>
+            </div>
             <div class="switch-button">
                 <label>Sound on</label>
                 <button class="toggle" onclick="toggleSound()">
@@ -48,55 +57,55 @@
         </div>
         <div class="main-elements">
             <button class="button main-button">START GAME</button>
-            <div class="result-container">
-                <div class="result-block">
-                    <span class="result-title">Catch:</span>
-                    <span class="result">0</span>
-                </div>
-                <div class="result-block">
-                    <span class="result-title">Miss:</span>
-                    <span class="result">0</span>
-                </div>
-            </div>
+<!--            <div class="result-container">-->
+<!--                <div class="result-block">-->
+<!--                    <span class="result-title">Catch:</span>-->
+<!--                    <span class="result">0</span>-->
+<!--                </div>-->
+<!--                <div class="result-block">-->
+<!--                    <span class="result-title">Miss:</span>-->
+<!--                    <span class="result">0</span>-->
+<!--                </div>-->
+<!--            </div>-->
             <table class="table">
                 <tbody></tbody>
             </table>
-<!--            <div class="modal" id="winModal">-->
-<!--                <div class="modal-decoration"><img src="img/icons/winnerIcon.svg" alt="icon"></div>-->
-<!--                <div class="modal-elements">-->
-<!--                    <div class="title-modal">You Win!</div>-->
-<!--                    <div class="text-modal">Congratulations</div>-->
-<!--                    <div class="modal-result">-->
-<!--                        <div class="result-block">-->
-<!--                            <span class="result-title">Catch:</span>-->
-<!--                            <span class="result">20</span>-->
-<!--                        </div>-->
-<!--                        <div class="result-block">-->
-<!--                            <span class="result-title">Miss:</span>-->
-<!--                            <span class="result">4</span>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <button class="button">Play again</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="modal" id="loseModal">-->
-<!--                <div class="modal-decoration"><img src="img/icons/lossIcon.svg" alt="icon"></div>-->
-<!--                <div class="modal-elements">-->
-<!--                    <div class="title-modal">You Lose!</div>-->
-<!--                    <div class="text-modal">You'll be lucky next time</div>-->
-<!--                    <div class="modal-result">-->
-<!--                        <div class="result-block">-->
-<!--                            <span class="result-title">Catch:</span>-->
-<!--                            <span class="result">12</span>-->
-<!--                        </div>-->
-<!--                        <div class="result-block">-->
-<!--                            <span class="result-title">Miss:</span>-->
-<!--                            <span class="result">10</span>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <button class="button">Play again</button>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="modal" id="winModal" style="display: none">
+                <div class="modal-decoration"><img src="img/icons/winnerIcon.svg" alt="icon"></div>
+                <div class="modal-elements">
+                    <div class="title-modal">You Win!</div>
+                    <div class="text-modal">Congratulations</div>
+                    <div class="modal-result">
+                        <div class="result-block">
+                            <span class="result-title">Catch:</span>
+                            <span class="result">20</span>
+                        </div>
+                        <div class="result-block">
+                            <span class="result-title">Miss:</span>
+                            <span class="result">4</span>
+                        </div>
+                    </div>
+                    <button class="button">Play again</button>
+                </div>
+            </div>
+            <div class="modal" id="loseModal" style="display: none">
+                <div class="modal-decoration"><img src="img/icons/lossIcon.svg" alt="icon"></div>
+                <div class="modal-elements">
+                    <div class="title-modal">You Lose!</div>
+                    <div class="text-modal">You'll be lucky next time</div>
+                    <div class="modal-result">
+                        <div class="result-block">
+                            <span class="result-title">Catch:</span>
+                            <span class="result">12</span>
+                        </div>
+                        <div class="result-block">
+                            <span class="result-title">Miss:</span>
+                            <span class="result">10</span>
+                        </div>
+                    </div>
+                    <button class="button">Play again</button>
+                </div>
+            </div>
         </div>
     </section>
 </main>

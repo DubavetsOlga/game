@@ -18,5 +18,8 @@
     "transform": {
       "^.+\\.[tj]sx?$": "babel-jest"
     }
+  },
+  "devDependencies": {
+    "prettier": "3.4.2"
   }
 }
