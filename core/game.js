@@ -8,7 +8,7 @@ class Game {
     constructor(){}
 
     #settings = {
-        pointsToWin: 10,
+        pointsToWin: 5,
         gridSize: {
             columns: 4,
             rows: 4,
@@ -39,23 +39,23 @@ class Game {
     }
 
     get status() {
-        return this.#status;
+        return this.#status
     }
 
-    get score() {
-        return this.#score;
+    async getScore() {
+        return this.#score
     }
 
-    get player1() {
-        return this.#player1;
+    async getPlayer1() {
+        return this.#player1
     }
 
-    get player2() {
-        return this.#player2;
+    async getPlayer2() {
+        return this.#player2
     }
 
-    get google() {
-        return this.#google;
+    async getGoogle() {
+        return this.#google
     }
 
     get eventEmitter() {
