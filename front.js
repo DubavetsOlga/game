@@ -23,21 +23,34 @@ const start = async () => {
     const eventEmitter = new EventEmitter()
     game = new Game(eventEmitter)
     await game.start()
-    game.settings = {
+    // game.settings = {
+    //     pointsToWin: pointsToWin,
+    //     gridSize: {
+    //         columns: gridSize,
+    //         rows: gridSize,
+    //     },
+    //     googleJumpInterval: googleJumpInterval,
+    // };
+    game.setSettings({
         pointsToWin: pointsToWin,
         gridSize: {
             columns: gridSize,
             rows: gridSize,
         },
         googleJumpInterval: googleJumpInterval,
-    };
+    });
 
     await render();
 
-    game.api.subscribe('change', () => {
+    game.eventEmitter.subscribe('change', () => {
+        console.log('changed')
         render()
     })
-    game.api.subscribe("gameFinished", () => {
+
+    // game.api.subscribe('change', () => {
+    //     render()
+    // })
+    game.eventEmitter.subscribe("gameFinished", () => {
         tableElement.replaceChildren();
         winModal.style.display = "block";
         //loseModal.style.display = "block";
@@ -105,8 +118,8 @@ const render = async () => {
 
     try {
         const score = await game.getScore()
-        // const settings = await game.getSettings()
-        const settings = game.settings
+        const settings = await game.getSettings()
+        // const settings = game.settings
         const google = await game.getGoogle()
         const player1 = await game.getPlayer1()
         const player2 = await game.getPlayer2()

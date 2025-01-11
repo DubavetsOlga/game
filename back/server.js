@@ -22,13 +22,14 @@ wss.on('connection', (ws) => {
 
             if (typeof game[action.procedure] === 'function') {
                 console.log(`Executing procedure: ${action.procedure}`) // Логирование для отладки
-                const result = await game[action.procedure]()
+                const result = await game[action.procedure](action.content)
                 console.log(`Result of ${action.procedure}:`, result) // Логирование для отладки
                 const response = {
                     procedure: action.procedure,
                     result: result,
                     type: 'response',
                 }
+
                 ws.send(JSON.stringify(response)) // Отправляем результат клиенту
             } else {
                 console.error(`Procedure "${action.procedure}" not found`)

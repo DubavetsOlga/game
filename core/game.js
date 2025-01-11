@@ -26,15 +26,7 @@ class Game {
         2: {points: 0},
     };
 
-    set settings(settings) {
-        this.#settings = {...this.#settings, ...settings};
-
-        this.#settings.gridSize = settings.gridSize
-            ? {...this.#settings.gridSize, ...settings.gridSize}
-            : this.#settings.gridSize;
-    }
-
-    get settings() {
+    getSettings() {
         return this.#settings;
     }
 
@@ -81,6 +73,14 @@ class Game {
         clearInterval(this.#googleSetIntervalId);
         this.#status = "finished";
         this.#eventEmitter.emit("gameFinished", this.#score);
+    }
+
+    async setSettings(settings) {
+        this.#settings = {...this.#settings, ...settings};
+
+        this.#settings.gridSize = settings.gridSize
+            ? {...this.#settings.gridSize, ...settings.gridSize}
+            : this.#settings.gridSize;
     }
 
     movePlayer1Right() {

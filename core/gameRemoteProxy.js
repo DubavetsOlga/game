@@ -13,7 +13,7 @@ export class GameRemoteProxy {
                 throw new Error('Failed to create WebSocket')
             }
 
-            this.api = new Api(this.ws) // Инициализация api
+            this.api = new Api(this.ws, this.eventEmitter) // Инициализация api
 
             return new Promise((res, rej) => {
                 this.ws.onopen = async () => {
@@ -44,9 +44,9 @@ export class GameRemoteProxy {
     //     // Реализация
     // }
     //
-    // setSettings(settings) {
-    //     // Реализация
-    // }
+    setSettings(settings) {
+        this.api.send('setSettings', settings)
+    }
 
     movePlayer1Right() {
         this.api.send('movePlayer1Right')
@@ -80,9 +80,9 @@ export class GameRemoteProxy {
         this.api.send('movePlayer2Down')
     }
 
-    // async getSettings() {
-    //     return this.api.send('getSettings')
-    // }
+    async getSettings() {
+        return this.api.send('getSettings')
+    }
 
     async getStatus() {
         return this.api.send('getStatus')
@@ -109,7 +109,7 @@ export class GameRemoteProxy {
 }
 
 class Api {
-    constructor(ws) {
+    constructor(ws, eventEmitter) {
         this.ws = ws
         this.resolvers = {}
 
@@ -117,8 +117,8 @@ class Api {
             try {
                 const resultAction = JSON.parse(event.data)
 
-                if (resultAction === "change") this.emit("change")
-                if (resultAction === "gameFinished") this.emit("gameFinished")
+                if (resultAction === "change") eventEmitter.emit("change")
+                if (resultAction === "gameFinished") eventEmitter.emit("gameFinished")
 
                 if (resultAction.error) {
                     const resolver = this.resolvers[resultAction.procedure]?.shift()
@@ -136,27 +136,27 @@ class Api {
             }
         })
 
-        this.ws.addEventListener('close', () => {
-            Object.keys(this.resolvers).forEach(procedureName => {
-                this.resolvers[procedureName].forEach(resolver => {
-                    resolver(Promise.reject(new Error('Connection closed')))
-                })
-                this.resolvers[procedureName] = []
-            })
-        })
-
-        this.ws.addEventListener('error', error => {
-            console.error('WebSocket error:', error)
-            Object.keys(this.resolvers).forEach(procedureName => {
-                this.resolvers[procedureName].forEach(resolver => {
-                    resolver(Promise.reject(error))
-                })
-                this.resolvers[procedureName] = []
-            })
-        })
+        // this.ws.addEventListener('close', () => {
+        //     Object.keys(this.resolvers).forEach(procedureName => {
+        //         this.resolvers[procedureName].forEach(resolver => {
+        //             resolver(Promise.reject(new Error('Connection closed')))
+        //         })
+        //         this.resolvers[procedureName] = []
+        //     })
+        // })
+        //
+        // this.ws.addEventListener('error', error => {
+        //     console.error('WebSocket error:', error)
+        //     Object.keys(this.resolvers).forEach(procedureName => {
+        //         this.resolvers[procedureName].forEach(resolver => {
+        //             resolver(Promise.reject(error))
+        //         })
+        //         this.resolvers[procedureName] = []
+        //     })
+        // })
     }
 
-    send(procedureName, timeout = 5000) {
+    send(procedureName, content = null, timeout = 5000) {
         return new Promise((res, rej) => {
             const timer = setTimeout(() => {
                 console.log(`Request timeout for procedure: ${procedureName}`)
@@ -167,6 +167,7 @@ class Api {
             this.ws.send(
                 JSON.stringify({
                     procedure: procedureName,
+                    content: content,
                 })
             )
 
@@ -181,30 +182,30 @@ class Api {
         })
     }
 
-    on(eventName, callback) {
-        this.subscribe(eventName, callback);
-    }
-
-    subscribe(eventName, callback) {
-        if (!this.#subscribers[eventName]) {
-            this.#subscribers[eventName] = [];
-        }
-        this.#subscribers[eventName].push(callback);
-
-        // Возвращаем функцию для отписки
-        return () => {
-            this.#subscribers[eventName] = this.#subscribers[eventName].filter(
-                (cb) => cb !== callback,
-            );
-        };
-    }
-
-    #subscribers = {
-        // eventName: [callback1, callback2, ...]
-    };
-
-    emit(eventName, data) {
-        if (!this.#subscribers[eventName]) return;
-        this.#subscribers[eventName].forEach((callback) => callback(data));
-    }
+    // on(eventName, callback) {
+    //     this.subscribe(eventName, callback);
+    // }
+    //
+    // subscribe(eventName, callback) {
+    //     if (!this.#subscribers[eventName]) {
+    //         this.#subscribers[eventName] = [];
+    //     }
+    //     this.#subscribers[eventName].push(callback);
+    //
+    //     // Возвращаем функцию для отписки
+    //     return () => {
+    //         this.#subscribers[eventName] = this.#subscribers[eventName].filter(
+    //             (cb) => cb !== callback,
+    //         );
+    //     };
+    // }
+    //
+    // #subscribers = {
+    //     // eventName: [callback1, callback2, ...]
+    // };
+    //
+    // emit(eventName, data) {
+    //     if (!this.#subscribers[eventName]) return;
+    //     this.#subscribers[eventName].forEach((callback) => callback(data));
+    // }
 }
