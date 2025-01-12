@@ -40,10 +40,6 @@ export class GameRemoteProxy {
         }
     }
 
-    // async finishGame() {
-    //     // Реализация
-    // }
-    //
     setSettings(settings) {
         this.api.send('setSettings', settings)
     }
@@ -82,10 +78,6 @@ export class GameRemoteProxy {
 
     async getSettings() {
         return this.api.send('getSettings')
-    }
-
-    async getStatus() {
-        return this.api.send('getStatus')
     }
 
     async getPlayer1() {
@@ -135,25 +127,6 @@ class Api {
                 console.error('Failed to parse message:', error)
             }
         })
-
-        // this.ws.addEventListener('close', () => {
-        //     Object.keys(this.resolvers).forEach(procedureName => {
-        //         this.resolvers[procedureName].forEach(resolver => {
-        //             resolver(Promise.reject(new Error('Connection closed')))
-        //         })
-        //         this.resolvers[procedureName] = []
-        //     })
-        // })
-        //
-        // this.ws.addEventListener('error', error => {
-        //     console.error('WebSocket error:', error)
-        //     Object.keys(this.resolvers).forEach(procedureName => {
-        //         this.resolvers[procedureName].forEach(resolver => {
-        //             resolver(Promise.reject(error))
-        //         })
-        //         this.resolvers[procedureName] = []
-        //     })
-        // })
     }
 
     send(procedureName, content = null, timeout = 5000) {
@@ -181,31 +154,4 @@ class Api {
             })
         })
     }
-
-    // on(eventName, callback) {
-    //     this.subscribe(eventName, callback);
-    // }
-    //
-    // subscribe(eventName, callback) {
-    //     if (!this.#subscribers[eventName]) {
-    //         this.#subscribers[eventName] = [];
-    //     }
-    //     this.#subscribers[eventName].push(callback);
-    //
-    //     // Возвращаем функцию для отписки
-    //     return () => {
-    //         this.#subscribers[eventName] = this.#subscribers[eventName].filter(
-    //             (cb) => cb !== callback,
-    //         );
-    //     };
-    // }
-    //
-    // #subscribers = {
-    //     // eventName: [callback1, callback2, ...]
-    // };
-    //
-    // emit(eventName, data) {
-    //     if (!this.#subscribers[eventName]) return;
-    //     this.#subscribers[eventName].forEach((callback) => callback(data));
-    // }
 }
